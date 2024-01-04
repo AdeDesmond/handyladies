@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export const StoreNav = () => {
   return (
-    <div className="flex items-center justify-center gap-x-1 text-slate-200">
+    <div className="flex items-center justify-center gap-x-1 text-slate-200 flex-col gap-y-3 lg:flex-row">
       <Button size="sm" asChild>
         <Link
           href="/product"

@@ -5,7 +5,7 @@ import Link from "next/link";
 //TODO get a better font
 export const CallToAction = () => {
   return (
-    <div className="absolute w-[400px] top-[18rem] left-[12rem]">
+    <div className="absolute w-[400px] top-[18rem] left-[3rem] lg:left-[12rem] md:left-[5rem]">
       <p className="mb-6 text-xl font-bold text-white leading-relaxed">
         Changing the frontiers of hand bags with{" "}
         <span className={cn("bg-slate-800 h-8 p-3 clip text-xs text-gray-200")}>

@@ -6,7 +6,6 @@ import Link from "next/link";
 
 export const CustomerNav = () => {
   const user = useCurrentUSer();
-  console.log(user);
   let authState;
 
   if (user) {
@@ -15,7 +14,7 @@ export const CustomerNav = () => {
     );
   } else if (!user) {
     return (
-      <div className="text-white space-x-2">
+      <div className="text-white lg:space-x-2 flex flex-col lg:flex-row gap-y-2 items-center">
         <Button size="sm" variant="ghost" asChild>
           <Link href="/auth/signin" className="text-muted-foreground text-sm">
             Sign in

@@ -38,7 +38,7 @@ export const ShowProduct = () => {
     <ShowProductItem key={item.name} item={item} />
   ));
   return (
-    <div className="w-[1200px] bg-white absolute top-[30rem]  z-1000 left-[10rem] grid grid-cols-3 min-h-screen place-items-center gap-3 p-4">
+    <div className=" grid-cols-1 md:grid-cols-2 w-[500px] md:w-[750px] md:left-[5rem] gap-y-4  lg:w-[1200px] bg-white absolute md:top-[28rem] lg:top-[28rem]  z-1000 lg:left-[10rem] grid lg:grid-cols-3 min-h-screen place-items-center gap-3 p-4">
       {renderedBags}
     </div>
   );

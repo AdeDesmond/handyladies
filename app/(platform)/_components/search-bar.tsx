@@ -3,7 +3,7 @@ import { LogoutButton } from "./logout-button";
 
 export const SearchBar = () => {
   return (
-    <div className="w-[1200px] h-[2.8rem] bg-slate-100 mx-auto  flex items-center justify-between rounded-tl-md rounded-tr-md p-2 overflow-hidden">
+    <div className="hidden w-[1200px] h-[2.8rem] bg-slate-100 mx-auto  lg:flex items-center justify-between rounded-tl-md rounded-tr-md p-2 overflow-hidden">
       <div className="w-[60%] flex items-center border rounded-md gap-x-1">
         <SearchIcon className="h-5 w-5" />
         <input

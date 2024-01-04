@@ -4,7 +4,7 @@ import { SearchBar } from "./search-bar";
 
 export const HeroSection = () => {
   return (
-    <section className="w-full h-[60vh] bg-[url('/back.png')] pt-4 relative ">
+    <section className="w-full h-[60vh] bg-[url('/back.png')] md:bg-center bg-center  pt-4 relative ">
       <SearchBar />
       <Header />
       <CallToAction />
