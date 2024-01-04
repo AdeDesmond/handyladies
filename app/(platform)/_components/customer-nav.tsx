@@ -1,0 +1,35 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { useCurrentUSer } from "@/hooks/use-current-user";
+import Link from "next/link";
+
+export const CustomerNav = () => {
+  const user = useCurrentUSer();
+  console.log(user);
+  let authState;
+
+  if (user) {
+    return (
+      <div className="text-muted-foreground ">Welcome back to handyladies</div>
+    );
+  } else if (!user) {
+    return (
+      <div className="text-white space-x-2">
+        <Button size="sm" variant="ghost" asChild>
+          <Link href="/auth/signin" className="text-muted-foreground text-sm">
+            Sign in
+          </Link>
+        </Button>
+
+        <Button className="bg-amber-700" size="sm" asChild>
+          <Link href="/auth/signup" className=" text-sm text-white">
+            Sign up
+          </Link>
+        </Button>
+      </div>
+    );
+  }
+
+  return authState;
+};
