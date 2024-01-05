@@ -81,3 +81,18 @@ model TwoFactorConfirmation {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@unique([userId])
 }
+
+model Product {
+  id String @id @default(cuid())
+  name String
+  brand String
+  price Int
+  quantity Int
+  description String @db.Text
+  image String @db.Text
+  material String
+
+  created_At DateTime @default(now())
+  updated_At DateTime @updatedAt
+}
+

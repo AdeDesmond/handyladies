@@ -25,3 +25,16 @@ export const NewPasswordSchema = z.object({
     .string()
     .min(6, { message: "password must be at least more than 6 character" }),
 });
+
+export const PostNewProductSchema = z.object({
+  name: z
+    .string()
+    .min(2, { message: "product name must be longer than two characters" }),
+  description: z.string().min(10, {
+    message: "please provide a better description for the product",
+  }),
+  brand: z.string(),
+  quantity: z.string(),
+  price: z.string(),
+  material: z.string(),
+});
