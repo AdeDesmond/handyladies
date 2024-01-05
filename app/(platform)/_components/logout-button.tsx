@@ -10,6 +10,7 @@ import {
 import { useCurrentUSer } from "@/hooks/use-current-user";
 import { CircleUser, LogOutIcon } from "lucide-react";
 import { signOut } from "next-auth/react";
+import Link from "next/link";
 
 export const LogoutButton = () => {
   const user = useCurrentUSer();
@@ -29,19 +30,26 @@ export const LogoutButton = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="flex items-center justify-center">
         {user && <p className="text-black">{user.email}</p> && (
-          <Button
-            className="group flex items-center gap-x-1"
-            onClick={() => signOut()}
-            size="sm"
-            variant="outline"
-          >
-            Logout{" "}
-            <LogOutIcon className="h-5 w-5 group-hover:translate-x-1 transition-all" />
-          </Button>
+          <>
+            <Button variant="outline" size="sm" asChild>
+              <Link href="/auth/profile">{user.name}</Link>
+            </Button>
+            <Button
+              className="group flex items-center gap-x-1"
+              onClick={() => signOut()}
+              size="sm"
+              variant="outline"
+            >
+              Logout{" "}
+              <LogOutIcon className="h-5 w-5 group-hover:translate-x-1 transition-all" />
+            </Button>
+          </>
         )}
-        <p className="text-muted-foreground text-xs font-semibold">
-          please login for the full experience
-        </p>
+        {!user && (
+          <p className="text-muted-foreground text-xs font-semibold">
+            please login for the full experience
+          </p>
+        )}
       </DropdownMenuContent>
     </DropdownMenu>
   );

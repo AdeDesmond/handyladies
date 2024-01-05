@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { ShoppingCartIcon } from "lucide-react";
 
 interface ProductDetailItemProps {
@@ -13,7 +14,11 @@ export const ProductDetailItem = ({
   material,
 }: ProductDetailItemProps) => {
   return (
-    <div className="w-[150px] bg-white bg-opacity-75 absolute hidden group-hover:block transition bottom-0 left-0 pricetag hover:bg-white cursor-pointer overflow-hidden p-1">
+    <div
+      className={cn(
+        "w-[150px] bg-white bg-opacity-75 absolute hidden group-hover:block transition bottom-0 left-0 pricetag hover:bg-white cursor-pointer overflow-hidden p-1 "
+      )}
+    >
       <div className="flex items-center justify-between px-2">
         <div>
           <h2 className="text-xl font-bold truncate">{name}</h2>

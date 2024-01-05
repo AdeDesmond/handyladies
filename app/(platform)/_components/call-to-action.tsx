@@ -1,14 +1,25 @@
 import { Button } from "@/components/ui/button";
+import localfont from "next/font/local";
 import { cn } from "@/lib/utils";
 import { ShoppingBagIcon } from "lucide-react";
 import Link from "next/link";
 //TODO get a better font
+
+const calltoActionFont = localfont({
+  src: "../../../public/font/DancingScript-Bold.ttf",
+});
+
 export const CallToAction = () => {
   return (
-    <div className="absolute w-[400px] top-[18rem] left-[3rem] lg:left-[12rem] md:left-[5rem]">
+    <div className="absolute w-[400px] top-[18rem] left-[3rem] lg:left-[10rem] md:left-[5rem]">
       <p className="mb-6 text-xl font-bold text-white leading-relaxed">
         Changing the frontiers of hand bags with{" "}
-        <span className={cn("bg-slate-800 h-8 p-3 clip text-xs text-gray-200")}>
+        <span
+          className={cn(
+            " h-8 p-3 clip text-3xl text-gray-200",
+            calltoActionFont.className
+          )}
+        >
           handyladies
         </span>{" "}
       </p>

@@ -7,7 +7,7 @@ body,
 :root {
   height: 100%;
 }
-
+/*
 .clip {
   clip-path: polygon(
     0% 20%,
@@ -19,9 +19,21 @@ body,
     0% 80%
   );
 }
-
+*/
 .pricetag {
   clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+}
+
+.pricetagemovement {
+  transform: translate3d(-3rem, 0, 0) rotate(360deg);
+  transition-delay: 0.3s;
+  opacity: 0;
+  transition-property: transform, opacity;
+}
+
+.pricetagemovement:hover {
+  transform: translate3d(0, 0, 0) rotate(0);
+  opacity: 1;
 }
 
 @layer base {

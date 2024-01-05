@@ -1,4 +1,8 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import { ShowProductItem } from "./items/show-product-item";
+import { cn } from "@/lib/utils";
 
 const testProducts = [
   {
@@ -34,11 +38,17 @@ const testProducts = [
 ];
 
 export const ShowProduct = () => {
+  const pathName = usePathname();
   const renderedBags = testProducts.map((item) => (
     <ShowProductItem key={item.name} item={item} />
   ));
   return (
-    <div className=" grid-cols-1 md:grid-cols-2 w-[500px] md:w-[750px] md:left-[5rem] gap-y-4  lg:w-[1200px] bg-white absolute md:top-[28rem] lg:top-[28rem]  z-1000 lg:left-[10rem] grid lg:grid-cols-3 min-h-screen place-items-center gap-3 p-4">
+    <div
+      className={cn(
+        " grid-cols-1 md:grid-cols-2 w-[500px] md:w-[750px] md:left-[5rem] gap-y-4  lg:w-[1200px] bg-white absolute md:top-[28rem] lg:top-[28rem]  z-1000 lg:left-[10rem] grid lg:grid-cols-3 min-h-screen place-items-center gap-3 p-4",
+        pathName === "/product" && "lg:top-[6rem] md:top-[6rem]"
+      )}
+    >
       {renderedBags}
     </div>
   );
