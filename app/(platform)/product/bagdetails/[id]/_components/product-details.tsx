@@ -11,26 +11,43 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
-export const ProductsWithDetails = () => {
+interface ProductWithDetailsProps {
+  item: {
+    id: string;
+    name: string;
+    brand: string;
+    price: number;
+    quantity: number;
+    description: string;
+    image: string;
+    material: string;
+    created_At: Date;
+    updated_At: Date;
+  } | null;
+}
+
+export const ProductsWithDetails = ({ item }: ProductWithDetailsProps) => {
   return (
     <div className="bg-white w-[1200px] px-[9rem]">
       <div className="flex justify-between items-center pt-10">
         <div className="w-[400px] h-[400px] bg-slate-400 relative ">
-          <Image src="/bags/1.png" alt="name" fill className="object-cover" />
+          <Image
+            src={item?.image || ""}
+            alt="name"
+            fill
+            className="object-cover"
+          />
         </div>
         <div className="basis-[50%]">
-          <h2 className="text-xl font-bold mb-2">Ladies bag</h2>
+          <h2 className="text-xl font-bold mb-2">{item?.brand}</h2>
           <p className="mb-2">
             {" "}
             <span className="text-xs text-muted-foreground">&yen;</span>
-            <strong className="text-xl font-semibold">1200</strong>
+            <strong className="text-xl font-semibold">{item?.price}</strong>
             <span className="text-xs text-muted-foreground">.00</span>{" "}
           </p>
           <p className="text-muted-foreground text-sm mb-3">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis ad
-            provident cum eveniet! Labore, dicta? Officiis, obcaecati dolor
-            delectus consequuntur id, at non facilis cumque odio, similique nemo
-            excepturi quas.
+            {item?.description}
           </p>
 
           <div className="flex items-center gap-x-2 mb-3">
@@ -52,12 +69,14 @@ export const ProductsWithDetails = () => {
             <p>
               name:
               <span className="text-muted-foreground text-sm">
-                Channel
+                {item?.name}
               </span>{" "}
             </p>
             <p>
               material :
-              <span className="text-muted-foreground text-sm">Cow leather</span>{" "}
+              <span className="text-muted-foreground text-sm">
+                {item?.material}
+              </span>{" "}
             </p>
             <p>
               product code :

@@ -3,6 +3,8 @@
 import { usePathname } from "next/navigation";
 import { ShowProductItem } from "./items/show-product-item";
 import { cn } from "@/lib/utils";
+import { ProductProps } from "@/data/product/query-products";
+import { Product } from "@prisma/client";
 
 const testProducts = [
   {
@@ -37,9 +39,13 @@ const testProducts = [
   },
 ];
 
-export const ShowProduct = () => {
+interface ShowProductsProps {
+  products: Product[];
+}
+
+export const ShowProduct = ({ products }: ShowProductsProps) => {
   const pathName = usePathname();
-  const renderedBags = testProducts.map((item) => (
+  const renderedBags = products.map((item) => (
     <ShowProductItem key={item.name} item={item} />
   ));
   return (

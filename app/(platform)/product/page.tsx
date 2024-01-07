@@ -1,10 +1,12 @@
 import React from "react";
 import { ShowProduct } from "../_components/product-display";
+import { fetchAllProducts } from "@/data/product/query-products";
 
-function ProductPage() {
+async function ProductPage() {
+  const products = await fetchAllProducts();
   return (
     <div>
-      <ShowProduct />
+      <ShowProduct products={products} />
     </div>
   );
 }
