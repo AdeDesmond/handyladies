@@ -1,18 +1,24 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
+import { useCartStore } from "@/hooks/use-cart-product";
 import { cn } from "@/lib/utils";
 import { ShoppingCartIcon } from "lucide-react";
 
 interface ProductDetailItemProps {
+  id: string;
   price: number;
   name: string;
   material: string;
 }
 
 export const ProductDetailItem = ({
+  id,
   price,
   name,
   material,
 }: ProductDetailItemProps) => {
+  const addCartItems = useCartStore((state) => state.addToCart);
   return (
     <div
       className={cn(
@@ -21,7 +27,7 @@ export const ProductDetailItem = ({
     >
       <div className="flex items-center justify-between px-2">
         <div>
-          <h2 className="text-xl font-bold truncate">{name}</h2>
+          <h2 className="text-xl font-bold w-[20px]">{name}</h2>
           <p className="text-sm text-muted-foreground w-[6rem]">{material}</p>
           <p>
             {" "}
@@ -33,6 +39,7 @@ export const ProductDetailItem = ({
         <Button
           className="h-8 w-8 rounded-full hover:scale-105 group"
           size="sm"
+          onClick={() => addCartItems(id)}
         >
           <ShoppingCartIcon className="w-6 h-6 group-hover:scale-105 group-hover:text-amber-500 " />
         </Button>

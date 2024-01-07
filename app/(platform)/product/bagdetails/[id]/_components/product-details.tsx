@@ -29,7 +29,7 @@ interface ProductWithDetailsProps {
 export const ProductsWithDetails = ({ item }: ProductWithDetailsProps) => {
   return (
     <div className="bg-white w-[1200px] px-[9rem]">
-      <div className="flex justify-between items-center pt-10">
+      <div className="flex flex-col pl-10 lg:pl-0 lg:flex-row md:flex-row justify-between items-center pt-10 ">
         <div className="w-[400px] h-[400px] bg-slate-400 relative ">
           <Image
             src={item?.image || ""}
