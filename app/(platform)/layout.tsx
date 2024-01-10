@@ -2,10 +2,13 @@
 
 import localfont from "next/font/local";
 import { usePathname } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import { Header } from "./_components/header";
 import { MobileSideNav } from "./_components/navbar/mobile-nav";
 import { cn } from "@/lib/utils";
+import CartProviders from "@/redux-store/slice/slice-provider";
+import { hideLoading } from "@/redux-store/slice/cart-slice";
+import { useDispatch } from "react-redux";
 
 interface EcommerceLayoutProps {
   children: React.ReactNode;
@@ -17,6 +20,11 @@ const siteFont = localfont({
 
 function EcommerceLayout({ children }: EcommerceLayoutProps) {
   const pathName = usePathname();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(hideLoading());
+  }, [dispatch]);
+
   return (
     <div
       className={cn(

@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import localfont from "next/font/local";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { AuthProvider } from "./providers/auth-provider";
 import { siteConfig } from "@/config/site-config";
 import { cn } from "@/lib/utils";
+import CartProviders from "@/redux-store/slice/slice-provider";
 
 export const metadata: Metadata = {
   title: {
@@ -31,13 +31,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <AuthProvider>
-      <html lang="en">
-        <body className={cn(fallbackFont.className)}>
-          <Toaster />
-          {children}
-        </body>
-      </html>
-    </AuthProvider>
+    <CartProviders>
+      <AuthProvider>
+        <html lang="en">
+          <body className={cn(fallbackFont.className)}>
+            <Toaster />
+            {children}
+          </body>
+        </html>
+      </AuthProvider>
+    </CartProviders>
   );
 }

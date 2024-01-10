@@ -1,3 +1,5 @@
+"use client";
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -10,6 +12,12 @@ import {
   Twitter,
 } from "lucide-react";
 import Image from "next/image";
+import {
+  addToCart,
+  decreaseCartItem,
+  increaseCartItem,
+} from "@/redux-store/slice/cart-slice";
+import { useState } from "react";
 
 interface ProductWithDetailsProps {
   item: {
@@ -27,6 +35,26 @@ interface ProductWithDetailsProps {
 }
 
 export const ProductsWithDetails = ({ item }: ProductWithDetailsProps) => {
+  const dispatch = useDispatch();
+  const [qtyTest, setQty] = useState(1);
+  const test = useSelector((state: any) => state.cart);
+  const handleAddToCart = (product: any) => {
+    let newQty = qtyTest;
+    const existingItem = test.cartItems.find((x: any) => x.id === product.id);
+    if (existingItem) {
+      if (existingItem.quantity <= 10) {
+        newQty = existingItem.qty + 1;
+      }
+    }
+
+    dispatch(addToCart({ ...product, qty: newQty }));
+  };
+  const decreaseCartItemHandler = (id: string) => {
+    dispatch(decreaseCartItem(id));
+  };
+  const increaseCartItemHandler = (id: string) => {
+    dispatch(increaseCartItem(id));
+  };
   return (
     <div className="bg-white w-[1200px] px-[9rem]">
       <div className="flex flex-col pl-10 lg:pl-0 lg:flex-row md:flex-row justify-between items-center pt-10 ">
@@ -51,13 +79,25 @@ export const ProductsWithDetails = ({ item }: ProductWithDetailsProps) => {
           </p>
 
           <div className="flex items-center gap-x-2 mb-3">
-            <Button size="sm">Add to cart</Button>
+            <Button onClick={() => handleAddToCart(item)} size="sm">
+              Add to cart
+            </Button>
             <div className="flex items-center gap-x-1 mr-3">
-              <Button size="sm" variant="outline">
+              <Button
+                onClick={() => increaseCartItemHandler(item?.id as string)}
+                size="sm"
+                variant="outline"
+              >
                 <Plus className="w-4 h-4" />
               </Button>
-              <p className="text-xl font-semibold">{0}</p>
-              <Button size="sm" variant="outline">
+              <p className="text-xl font-semibold">{test.itemQuantity}</p>
+              <Button
+                disabled={test.itemQuantity === 0}
+                onClick={() => decreaseCartItemHandler(item?.id as string)}
+                size="sm"
+                variant="outline"
+                className="disabled:cursor-not-allowed"
+              >
                 <Minus className="w-4 h-4" />
               </Button>
             </div>

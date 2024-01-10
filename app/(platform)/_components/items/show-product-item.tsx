@@ -29,6 +29,7 @@ export const ShowProductItem = ({ item }: ShowProductItemsProps) => {
         />
       </Link>
       <ProductDetailItem
+        item={item}
         id={item.id}
         name={item.brand}
         price={item.price}

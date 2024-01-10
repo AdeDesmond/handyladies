@@ -1,12 +1,15 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useCartStore } from "@/hooks/use-cart-product";
+import { useDispatch, useSelector } from "react-redux";
 import { cn } from "@/lib/utils";
 import { ShoppingCartIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+import { addToCart } from "@/redux-store/slice/cart-slice";
 
 interface ProductDetailItemProps {
   id: string;
+  item: any;
   price: number;
   name: string;
   material: string;
@@ -14,11 +17,30 @@ interface ProductDetailItemProps {
 
 export const ProductDetailItem = ({
   id,
+  item,
   price,
   name,
   material,
 }: ProductDetailItemProps) => {
-  const addCartItems = useCartStore((state) => state.addToCart);
+  const [qty, setQty] = useState(1);
+  const dispatch = useDispatch();
+  const cartProducts = useSelector((state: any) => state.cart);
+  let newQty = qty;
+  const handleAddItemsToCart = (product: any) => {
+    console.log(product);
+    const existingProduct = cartProducts.cartItems.find(
+      (x: any) => x.id === product.id
+    );
+    if (existingProduct) {
+      if (existingProduct.quantity <= 10) {
+        newQty = existingProduct.qty + 1;
+      } else {
+        alert("out of stock");
+      }
+    }
+
+    dispatch(addToCart({ ...product, qty: newQty }));
+  };
   return (
     <div
       className={cn(
@@ -39,7 +61,7 @@ export const ProductDetailItem = ({
         <Button
           className="h-8 w-8 rounded-full hover:scale-105 group"
           size="sm"
-          onClick={() => addCartItems(id)}
+          onClick={() => handleAddItemsToCart(item)}
         >
           <ShoppingCartIcon className="w-6 h-6 group-hover:scale-105 group-hover:text-amber-500 " />
         </Button>
