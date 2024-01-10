@@ -27,7 +27,6 @@ export const ProductDetailItem = ({
   const cartProducts = useSelector((state: any) => state.cart);
   let newQty = qty;
   const handleAddItemsToCart = (product: any) => {
-    console.log(product);
     const existingProduct = cartProducts.cartItems.find(
       (x: any) => x.id === product.id
     );

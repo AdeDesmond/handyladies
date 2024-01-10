@@ -48,25 +48,32 @@ const cartSlice = createSlice({
     },
     increaseCartItem: (state, action) => {
       const item = state.cartItems.find((x: any) => x.id === action.payload);
-      item.qty++;
-      state.itemsPrice = state.cartItems.reduce(
-        (acc: any, item: any) => acc + item.price * item.qty,
-        0
-      );
-      state.itemQuantity = item.qty;
-      //Todo tax shipping price and total price
-      Cookies.set("cart", JSON.stringify(state));
+      if (item) {
+        item.qty++;
+        state.itemsPrice = state.cartItems.reduce(
+          (acc: any, item: any) => acc + item.price * item.qty,
+          0
+        );
+        state.itemQuantity = item.qty;
+        //Todo tax shipping price and total price
+        Cookies.set("cart", JSON.stringify(state));
+      }
     },
     decreaseCartItem: (state, action: PayloadAction<any>) => {
       const item = state.cartItems.find((x: any) => x.id === action.payload);
-      item.qty--;
-      state.itemsPrice = state.cartItems.reduce(
-        (acc: any, item: any) => acc + item.price * item.qty,
-        0
-      );
-      state.itemQuantity = item.qty;
-      //Todo tax shipping price and total price
-      Cookies.set("cart", JSON.stringify(state));
+      if (item) {
+        item.qty--;
+        state.itemsPrice = state.cartItems.reduce(
+          (acc: any, item: any) => acc + item.price * item.qty,
+          0
+        );
+        state.itemQuantity = item.qty;
+        if (item.qty === 0) {
+          cartSlice.caseReducers.deleteCartItem(state, action);
+        }
+        //Todo tax shipping price and total price
+        Cookies.set("cart", JSON.stringify(state));
+      }
     },
     clearCart: (state) => {
       state.cartItems = [];

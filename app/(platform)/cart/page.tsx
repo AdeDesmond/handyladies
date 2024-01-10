@@ -20,7 +20,9 @@ import { ArrowLeft } from "lucide-react";
 
 function CartPage() {
   const dispatch = useDispatch(); //use for test only
-  const { cartItems, loading } = useSelector((state: any) => state.cart);
+  const { cartItems, loading, itemsPrice } = useSelector(
+    (state: any) => state.cart
+  );
   let cartState;
   if (loading) {
     cartState = (
@@ -44,24 +46,41 @@ function CartPage() {
             </Button>
           </div>
         ) : (
-          <Table className="bg-white w-[60%] mx-auto">
-            <TableCaption>A list of your recent invoices.</TableCaption>
-            <TableHeader>
-              <TableRow>
-                <TableHead className="w-[100px]">Product Photo</TableHead>
-                <TableHead>Product Name</TableHead>
-                <TableHead>Brand</TableHead>
-                <TableHead className="text-right">Amount</TableHead>
-                <TableHead className="text-center">Price</TableHead>
-                <TableHead className="text-left">Quantity</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {cartItems.map((product: any) => (
-                <CartListItem key={product.id} product={product} />
-              ))}
-            </TableBody>
-          </Table>
+          <div className="bg-white w-[65%] relative">
+            <p className="flex items-center gap-x-1 justify-end pr-10">
+              <span className="text-xs text-muted-foreground">
+                total amount
+              </span>
+              <p>
+                {" "}
+                <span className="text-xs text-muted-foreground">&yen;</span>
+                <strong className="text-xl font-semibold">{itemsPrice}</strong>
+                <span className="text-xs text-muted-foreground">.00</span>
+              </p>
+            </p>
+            <Table className="bg-white w-full mx-auto">
+              <TableCaption>A list of your recent invoices.</TableCaption>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[100px]">Product Photo</TableHead>
+                  <TableHead>Product Name</TableHead>
+                  <TableHead>Brand</TableHead>
+                  <TableHead className="text-center">Amount</TableHead>
+                  <TableHead className="text-center">Price</TableHead>
+                  <TableHead className="text-left">Quantity</TableHead>
+                  <TableHead className="text-left">Remove</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {cartItems.map((product: any) => (
+                  <CartListItem key={product.id} product={product} />
+                ))}
+              </TableBody>
+              <Button onClick={() => dispatch(clearCart())}>
+                Temporal clear
+              </Button>
+            </Table>
+          </div>
         )}
       </div>
     );

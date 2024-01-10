@@ -2,16 +2,27 @@
 
 import { Button } from "@/components/ui/button";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { deleteCartItem } from "@/redux-store/slice/cart-slice";
-import { Trash2Icon } from "lucide-react";
+import {
+  decreaseCartItem,
+  deleteCartItem,
+  increaseCartItem,
+} from "@/redux-store/slice/cart-slice";
+import { Minus, Plus, Trash2Icon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function CartListItem({ product }: any) {
+  const { itemQuantity } = useSelector((state: any) => state.cart);
   const dispatch = useDispatch();
   const handleDeleteHandler = (productId: string) => {
     dispatch(deleteCartItem(productId));
+  };
+  const increaseCartItemHandler = (id: string) => {
+    dispatch(increaseCartItem(id));
+  };
+  const decreaseCartItemHandler = (id: string) => {
+    dispatch(decreaseCartItem(id));
   };
   let renderProduct;
   if (product?.qty > 0) {
@@ -32,7 +43,25 @@ export default function CartListItem({ product }: any) {
         </TableCell>
         <TableCell>{product?.name}</TableCell>
         <TableCell>{product?.brand}</TableCell>
-        <TableCell>Credit Card</TableCell>
+        <TableCell>
+          <div className="flex items-center gap-1">
+            <Button
+              disabled={itemQuantity === 0}
+              onClick={() => decreaseCartItemHandler(product?.id)}
+              variant="outline"
+              size="sm"
+            >
+              <Minus className="w-5 h-5" />
+            </Button>
+            <Button
+              onClick={() => increaseCartItemHandler(product?.id)}
+              variant="outline"
+              size="sm"
+            >
+              <Plus className="w-5 h-5" />
+            </Button>
+          </div>
+        </TableCell>
         <TableCell className="text-right">
           <p>
             {" "}
