@@ -28,6 +28,7 @@ model User {
   isTwoFactorEnabled Boolean @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
   accounts      Account[]
+  orders        Orders[]
 }
 
 model Account {
@@ -94,5 +95,36 @@ model Product {
 
   created_At DateTime @default(now())
   updated_At DateTime @updatedAt
+
+  orders Orders[]
 }
 
+model Orders {
+  id String @id @default(cuid())
+  userId String
+  orderId String
+  amount Float
+  currency String
+  status String
+  deliveryStatus String? @default("pending")
+  productId String?
+  address  Json?
+  created_At DateTime @default(now())
+  updated_At DateTime @updatedAt
+   image    String[]
+   products  Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
+  users  User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+}
+
+model Address {
+  id String @id @default(cuid())
+  country String
+  state String?
+  city String
+  postal_code String
+  line1 String
+  line2 String?
+
+ 
+}

@@ -1,5 +1,5 @@
 "use client";
-
+import axios from "axios";
 import { MoonLoader } from "react-spinners";
 import React, { useEffect } from "react";
 import {
@@ -17,10 +17,37 @@ import { Button } from "@/components/ui/button";
 import { clearCart } from "@/redux-store/slice/cart-slice";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { loadStripe } from "@stripe/stripe-js";
+import { useSession } from "next-auth/react";
+const stripePromise = loadStripe(process.env.stripe_public_key!);
+//
+//
+//
+//
 
 function CartPage() {
+  const session = useSession();
   const dispatch = useDispatch(); //use for test only
-  const { cartItems, loading, itemsPrice } = useSelector(
+  const createCheckOutSession = async () => {
+    const stripe = await stripePromise;
+
+    //call the backend to create a checkout session....
+    const checkOutSession = await axios.post("/api/checkout", {
+      items: cartItems,
+      email: session.data?.user.email,
+      userId: session.data?.user.id,
+    });
+
+    //redirect the customer to stripe checkout
+    const results = await stripe?.redirectToCheckout({
+      sessionId: checkOutSession.data.id,
+    });
+
+    if (results) {
+      alert(results.error.message);
+    }
+  };
+  const { cartItems, loading, itemsPrice, itemQuantity } = useSelector(
     (state: any) => state.cart
   );
   let cartState;
@@ -80,6 +107,20 @@ function CartPage() {
                 Temporal clear
               </Button>
             </Table>
+            <div className="flex flex-col items-center justify-end gap-y-2">
+              <p className="bg-amber-700 w-[15rem] h-10 rounded-lg text-white flex items-center justify-center gap-x-1">
+                subtotal({itemQuantity}items):
+                <span>&yen;{itemsPrice}</span>
+              </p>
+              <Button
+                onClick={createCheckOutSession}
+                role="link"
+                size="sm"
+                variant="secondary"
+              >
+                proceed to checkout
+              </Button>
+            </div>
           </div>
         )}
       </div>

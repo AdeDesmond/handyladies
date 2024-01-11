@@ -27,7 +27,7 @@ export const CallToAction = () => {
         asChild
         className="transition ease-in-out delay-150 bg-amber-500 hover:-translate-y-1 hover:scale-110 hover:bg-yellow-700 duration-300 group"
       >
-        <Link href="/" className="flex items-center gap-x-1">
+        <Link href="/product" className="flex items-center gap-x-1">
           <ShoppingBagIcon className="h-5 w-5  group-hover:translate-x-1 group-hover:rotate-180 transition duration-150 ease-in-out" />
           Discover our world
         </Link>

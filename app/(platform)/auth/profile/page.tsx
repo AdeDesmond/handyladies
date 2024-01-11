@@ -93,7 +93,7 @@ function ProfilePage() {
                   Update your profile details
                 </h2>
                 <Form {...form}>
-                  <form className="flex items-center gap-x-1 justify-center ">
+                  <form className="flex items-center gap-x-3 justify-center ">
                     <FormField
                       control={form.control}
                       name="username"
