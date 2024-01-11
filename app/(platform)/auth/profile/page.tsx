@@ -86,6 +86,18 @@ function ProfilePage() {
               >
                 New Product
               </Button>
+              <Button
+                onClick={() => handleSelectedViews("orders")}
+                variant="outline"
+                size="sm"
+                className={cn(
+                  selected === "orders"
+                    ? "bg-amber-600 border-none hover:bg-amber-400 text-white"
+                    : null
+                )}
+              >
+                Orders
+              </Button>
             </div>
             {selected === "update" && (
               <div className="w-full h-full overflow-hidden flex items-center p-4 flex-col ">
@@ -168,6 +180,16 @@ function ProfilePage() {
                 </h2>
                 <Button variant="outline" size="sm" asChild>
                   <Link href="/product/new-product">new product</Link>
+                </Button>
+              </div>
+            )}
+            {selected === "orders" && (
+              <div className="flex items-center w-full h-full flex-col gap-y-2 pt-10">
+                <h2 className="font-semibold text-xl">
+                  Click the link below to see your orders
+                </h2>
+                <Button variant="outline" size="sm" asChild>
+                  <Link href="/order">orders</Link>
                 </Button>
               </div>
             )}

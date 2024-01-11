@@ -29,6 +29,7 @@ export async function POST(req: Request) {
     //fullfilled the order and store the information inside the db
     await db.orders.create({
       data: {
+        email: session.metadata ? session.metadata.email : undefined,
         orderId: session.id,
         amount: session.amount_total as number,
         image: session.metadata

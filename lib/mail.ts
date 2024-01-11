@@ -6,7 +6,7 @@ export const sendVerificationEmail = async (
   token: string
 ) => {
   try {
-    const confirmLink = `${process.env.NEXTAUTH_URL}/auth/new-verification?token=${token}`;
+    const confirmLink = `${process.env.DOMAIN}/auth/new-verification?token=${token}`;
     const transporter = nodemailer.createTransport({
       host: "sandbox.smtp.mailtrap.io",
       port: 2525,
@@ -37,7 +37,7 @@ export const sendPasswordResetToken = async (
   token: string
 ) => {
   try {
-    const resetLink = `${process.env.NEXTAUTH_URL}/auth/new-password?token=${token}`;
+    const resetLink = `${process.env.DOMAIN}/auth/new-password?token=${token}`;
     const transporter = nodemailer.createTransport({
       host: "sandbox.smtp.mailtrap.io",
       port: 2525,

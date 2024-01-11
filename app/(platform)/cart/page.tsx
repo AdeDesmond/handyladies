@@ -1,7 +1,7 @@
 "use client";
 import axios from "axios";
 import { MoonLoader } from "react-spinners";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -26,6 +26,7 @@ const stripePromise = loadStripe(process.env.stripe_public_key!);
 //
 
 function CartPage() {
+  const [clearCartSession, setClearCartSession] = useState<string | null>(null);
   const session = useSession();
   const dispatch = useDispatch(); //use for test only
   const createCheckOutSession = async () => {
@@ -46,7 +47,21 @@ function CartPage() {
     if (results) {
       alert(results.error.message);
     }
+
+    //check to see if we have a success message in order to clear the cart
+    setClearCartSession(checkOutSession.data.message);
   };
+  const handleClearCart = useCallback(() => {
+    () => {
+      dispatch(clearCart());
+    };
+  }, [dispatch]);
+  useEffect(() => {
+    if (clearCartSession === "success") {
+      handleClearCart();
+    }
+  }, [clearCartSession, handleClearCart]);
+
   const { cartItems, loading, itemsPrice, itemQuantity } = useSelector(
     (state: any) => state.cart
   );
@@ -103,9 +118,7 @@ function CartPage() {
                   <CartListItem key={product.id} product={product} />
                 ))}
               </TableBody>
-              <Button onClick={() => dispatch(clearCart())}>
-                Temporal clear
-              </Button>
+              <Button onClick={handleClearCart}>Temporal clear</Button>
             </Table>
             <div className="flex flex-col items-center justify-end gap-y-2">
               <p className="bg-amber-700 w-[15rem] h-10 rounded-lg text-white flex items-center justify-center gap-x-1">

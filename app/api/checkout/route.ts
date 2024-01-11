@@ -1,6 +1,5 @@
 import { Product } from "@prisma/client";
 import { stripe } from "@/lib/stripe";
-import Stripe from "stripe";
 import { NextRequest, NextResponse } from "next/server";
 
 type ProductForStripe = Product & {
@@ -10,7 +9,7 @@ type ProductForStripe = Product & {
 export async function POST(req: NextRequest) {
   const { items, email, userId } = await req.json();
   const transformedItemsForStripe = items.map((item: ProductForStripe) => ({
-    quantity: 1,
+    quantity: item.qty,
     price_data: {
       currency: "jpy",
       unit_amount: item.price,
@@ -36,6 +35,9 @@ export async function POST(req: NextRequest) {
       images: JSON.stringify(items.map((item: ProductForStripe) => item.image)),
     },
   });
-  return NextResponse.json({ id: stripesession.id }, { status: 200 });
+  return NextResponse.json(
+    { id: stripesession.id, message: "success" },
+    { status: 200 }
+  );
 }
 //description: item.description,

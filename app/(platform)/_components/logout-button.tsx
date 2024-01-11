@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useCurrentUSer } from "@/hooks/use-current-user";
-import { CircleUser, LogOutIcon } from "lucide-react";
+import { CircleUser, LogIn, LogOutIcon } from "lucide-react";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
 
@@ -29,7 +29,7 @@ export const LogoutButton = () => {
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="flex items-center justify-center">
-        {user && <p className="text-black">{user.email}</p> && (
+        {user && <p className="text-black mr-2">{user.email}</p> && (
           <>
             <Button variant="outline" size="sm" asChild>
               <Link href="/auth/profile">{user.name}</Link>
@@ -46,9 +46,17 @@ export const LogoutButton = () => {
           </>
         )}
         {!user && (
-          <p className="text-muted-foreground text-xs font-semibold">
-            please login for the full experience
-          </p>
+          <div className="bg-white flex items-center flex-col gap-y-2">
+            <p className="text-muted-foreground text-xs">
+              Please login for the full experience
+            </p>
+            <Button size="sm" variant="secondary" asChild>
+              <Link href="/signin" className="flex items-center group gap-x-1">
+                <LogIn className="w-6 h-6 group-hover:-translate-x-1 transition" />
+                login
+              </Link>
+            </Button>
+          </div>
         )}
       </DropdownMenuContent>
     </DropdownMenu>

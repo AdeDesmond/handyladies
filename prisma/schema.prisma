@@ -103,6 +103,7 @@ model Orders {
   id String @id @default(cuid())
   userId String
   orderId String
+  email String?
   amount Float
   currency String
   status String
