@@ -15,35 +15,34 @@ enum UserRole {
   USER
 }
 
-
-
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  password      String?
-  role          UserRole @default(USER)
-  isTwoFactorEnabled Boolean @default(false)
+  id                    String                 @id @default(cuid())
+  name                  String?
+  email                 String?                @unique
+  emailVerified         DateTime?
+  image                 String?
+  password              String?
+  role                  UserRole               @default(USER)
+  isTwoFactorEnabled    Boolean                @default(false)
   twoFactorConfirmation TwoFactorConfirmation?
-  accounts      Account[]
-  orders        Orders[]
+  accounts              Account[]
+  orders                Orders[]
+  Comments              Comments[]
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?  @db.Text
-  access_token       String?  @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?  @db.Text
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -51,81 +50,92 @@ model Account {
 }
 
 model VerificationToken {
-  id String @id @default(cuid())
-  email String
-  token String @unique
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
   expires DateTime
+
   @@unique([email, token])
 }
 
 model PasswordResetToken {
-  id String @id @default(cuid())
-  email String
-  token String @unique
-  expires DateTime 
-  @@unique([email, token])
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
 
+  @@unique([email, token])
 }
 
 model TwoFactorToken {
-  id String @id @default(cuid())
-  email String
-  token String @unique
-  expires DateTime 
-  @@unique([email, token])
+  id      String   @id @default(cuid())
+  email   String
+  token   String   @unique
+  expires DateTime
 
+  @@unique([email, token])
 }
 
 model TwoFactorConfirmation {
-  id String @id @default(cuid())
+  id     String @id @default(cuid())
   userId String
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
   @@unique([userId])
 }
 
 model Product {
-  id String @id @default(cuid())
-  name String
-  brand String
-  price Int
-  quantity Int
+  id          String @id @default(cuid())
+  name        String
+  brand       String
+  price       Int
+  quantity    Int
   description String @db.Text
-  image String @db.Text
-  material String
+  image       String @db.Text
+  material    String
 
   created_At DateTime @default(now())
   updated_At DateTime @updatedAt
 
-  orders Orders[]
+  orders   Orders[]
+  Comments Comments[]
 }
 
 model Orders {
-  id String @id @default(cuid())
-  userId String
-  orderId String
-  email String?
-  amount Float
-  currency String
-  status String
-  deliveryStatus String? @default("pending")
-  productId String?
-  address  Json?
-  created_At DateTime @default(now())
-  updated_At DateTime @updatedAt
-   image    String[]
-   products  Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
-  users  User @relation(fields: [userId], references: [id], onDelete: Cascade)
-
+  id             String   @id @default(cuid())
+  userId         String
+  orderId        String
+  email          String?
+  amount         Float
+  currency       String
+  status         String
+  deliveryStatus String?  @default("pending")
+  productId      String?
+  address        Json?
+  created_At     DateTime @default(now())
+  updated_At     DateTime @updatedAt
+  image          String[]
+  products       Product? @relation(fields: [productId], references: [id], onDelete: Cascade)
+  users          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Address {
-  id String @id @default(cuid())
-  country String
-  state String?
-  city String
+  id          String  @id @default(cuid())
+  country     String
+  state       String?
+  city        String
   postal_code String
-  line1 String
-  line2 String?
+  line1       String
+  line2       String?
+}
 
- 
+model Comments {
+  id        String @id @default(cuid())
+  content   String @db.Text
+  productId String
+  userId    String
+
+  created_At DateTime @default(now())
+  product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

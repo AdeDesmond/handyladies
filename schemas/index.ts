@@ -38,3 +38,9 @@ export const PostNewProductSchema = z.object({
   price: z.string(),
   material: z.string(),
 });
+
+export const CommentSchema = z.object({
+  comment: z
+    .string()
+    .min(6, { message: "please enter a sincere and valid review" }),
+});

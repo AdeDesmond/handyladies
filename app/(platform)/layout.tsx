@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import CartProviders from "@/redux-store/slice/slice-provider";
 import { hideLoading } from "@/redux-store/slice/cart-slice";
 import { useDispatch } from "react-redux";
+import { Footer } from "./_components/footer";
 
 interface EcommerceLayoutProps {
   children: React.ReactNode;

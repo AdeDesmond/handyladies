@@ -18,24 +18,36 @@ import {
   increaseCartItem,
 } from "@/redux-store/slice/cart-slice";
 import { useState } from "react";
+import { CommentForm } from "./comments/comment-form";
+import { CommentList } from "./comments/comment-list";
+import { Comments } from "@prisma/client";
 
 interface ProductWithDetailsProps {
-  item: {
-    id: string;
-    name: string;
-    brand: string;
-    price: number;
-    quantity: number;
-    description: string;
-    image: string;
-    material: string;
-    created_At: Date;
-    updated_At: Date;
-  } | null;
+  item:
+    | {
+        id: string;
+        name: string;
+        brand: string;
+        price: number;
+        quantity: number;
+        description: string;
+        image: string;
+        material: string;
+        created_At: Date;
+        updated_At: Date;
+      }
+    | (null & any);
+  productId: string;
+  commentsByProduct: Comments[];
 }
 
-export const ProductsWithDetails = ({ item }: ProductWithDetailsProps) => {
+export const ProductsWithDetails = ({
+  item,
+  productId,
+  commentsByProduct,
+}: ProductWithDetailsProps) => {
   const dispatch = useDispatch();
+  const [showComment, setShowComment] = useState(false);
   const [qtyTest, setQty] = useState(1);
   const test = useSelector((state: any) => state.cart);
   const handleAddToCart = (product: any) => {
@@ -54,6 +66,9 @@ export const ProductsWithDetails = ({ item }: ProductWithDetailsProps) => {
   };
   const increaseCartItemHandler = (id: string) => {
     dispatch(increaseCartItem(id));
+  };
+  const handleShowCommentForm = () => {
+    setShowComment((show) => !show);
   };
   return (
     <div className="bg-white w-[1200px] px-[9rem]">
@@ -138,7 +153,23 @@ export const ProductsWithDetails = ({ item }: ProductWithDetailsProps) => {
         </div>
       </div>
       {/* set up a comment and revies serction */}
-      <p>comments and reviews</p>
+      <h3 className="text-lg mt-6 text-secondary-foreground mb-2">
+        comments and reviews፡{" "}
+        <span className="">
+          {item?._count.Comments}😇{" "}
+          <span className="text-xs text-muted-foreground">reviews</span>{" "}
+        </span>
+      </h3>
+      <CommentList commentsByProduct={commentsByProduct} />
+      <div className="w-full">
+        {
+          <CommentForm
+            showComment={showComment}
+            handleShowCommentForm={handleShowCommentForm}
+            productId={productId}
+          />
+        }
+      </div>
     </div>
   );
 };

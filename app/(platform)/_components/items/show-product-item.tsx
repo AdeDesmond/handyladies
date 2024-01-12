@@ -25,7 +25,7 @@ export const ShowProductItem = ({ item }: ShowProductItemsProps) => {
           src={item.image}
           alt="bag"
           fill
-          className="object-cover cursor-pointer hover:scale-105 transition ease-in-out duration-200 grayscale hover:grayscale-0"
+          className="object-cover cursor-pointer hover:scale-105 transition ease-in-out duration-200 hover:grayscale-0"
         />
       </Link>
       <ProductDetailItem

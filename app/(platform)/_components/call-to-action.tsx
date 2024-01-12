@@ -11,16 +11,16 @@ const calltoActionFont = localfont({
 
 export const CallToAction = () => {
   return (
-    <div className="absolute w-[400px] top-[18rem] left-[3rem] lg:left-[10rem] md:left-[5rem]">
-      <p className="mb-6 text-xl font-bold text-white leading-relaxed">
+    <div className="absolute w-[400px] top-[10rem] left-[3rem] lg:left-[10rem] md:left-[5rem]">
+      <p className="mb-2 text-4xl font-extrabold  leading-relaxed text-slate-300">
         Changing the frontiers of hand bags with{" "}
         <span
           className={cn(
-            " h-8 p-3 clip text-3xl text-gray-200",
+            " h-8 p-3 clip text-4xl text-amber-600 font-extrabold ",
             calltoActionFont.className
           )}
         >
-          handyladies
+          handyladies.
         </span>{" "}
       </p>
       <Button

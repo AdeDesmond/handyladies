@@ -5,5 +5,12 @@ export const fetchSingleProduct = async (id: string) => {
     where: {
       id,
     },
+    include: {
+      _count: {
+        select: {
+          Comments: true,
+        },
+      },
+    },
   });
 };
