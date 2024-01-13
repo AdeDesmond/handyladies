@@ -27,8 +27,8 @@ export default function CartListItem({ product }: any) {
   let renderProduct;
   if (product?.qty > 0) {
     renderProduct = (
-      <TableRow>
-        <TableCell className="font-medium">
+      <div className="flex items-center justify-around mb-2 border-b ">
+        <div className="font-medium">
           {
             <Link href={`/product/bagdetails/${product.id}`}>
               <Image
@@ -40,10 +40,17 @@ export default function CartListItem({ product }: any) {
               />
             </Link>
           }
-        </TableCell>
-        <TableCell>{product?.name}</TableCell>
-        <TableCell>{product?.brand}</TableCell>
-        <TableCell>
+        </div>
+        <p className="hidden md:hidden  lg:flex flex-col items-center gap-y-2">
+          {" "}
+          <span className="text-muted-foreground">Product name</span>{" "}
+          <span>{product?.name}</span>
+        </p>
+        <p className=" hidden md:flex lg:flex flex-col gap-y-2 items-center">
+          <span className="text-muted-foreground">Product Brand</span>
+          <span>{product?.brand}</span>
+        </p>
+        <div>
           <div className="flex items-center gap-1">
             <Button
               disabled={itemQuantity === 0}
@@ -61,17 +68,22 @@ export default function CartListItem({ product }: any) {
               <Plus className="w-5 h-5" />
             </Button>
           </div>
-        </TableCell>
-        <TableCell className="text-right">
+        </div>
+        <div className="hidden md:hidden  lg:flex flex-col gap-y-2 items-center ">
+          <p className="text-muted-foreground">Product Price</p>
           <p>
             {" "}
             <span className="text-xs text-muted-foreground">&yen;</span>
             <strong className="text-xl font-semibold">{product?.price}</strong>
             <span className="text-xs text-muted-foreground">.00</span>{" "}
           </p>
-        </TableCell>
-        <TableCell>{product?.qty > 0 ? product?.qty : null}</TableCell>
-        <TableCell>
+        </div>
+        <p className="flex flex-col gap-y-2 items-center">
+          <span className="text-muted-foreground">Quantity</span>
+          <span>{product?.qty > 0 ? product?.qty : null}</span>
+        </p>
+        <div className="hidden  lg:flex flex-col gap-y-2 items-center">
+          <p className="text-muted-foreground">Remove</p>
           <Button
             onClick={() => handleDeleteHandler(product.id)}
             size="sm"
@@ -79,8 +91,8 @@ export default function CartListItem({ product }: any) {
           >
             <Trash2Icon className="h-4 w-4 text-rose-400" />
           </Button>
-        </TableCell>
-      </TableRow>
+        </div>
+      </div>
     );
   } else if (product?.qty === 0) {
     renderProduct = null;

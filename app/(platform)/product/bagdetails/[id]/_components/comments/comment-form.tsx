@@ -61,7 +61,7 @@ export const CommentForm = ({
   return (
     <Form {...form}>
       <Button
-        className="mt-10"
+        className="mt-2"
         onClick={handleShowCommentForm}
         size="sm"
         variant="outline"
@@ -73,7 +73,7 @@ export const CommentForm = ({
         className={cn(
           "flex gap-y-2 px-4 opacity-0 translate-y-0 ",
           showComment &&
-            "opacity-100 translate-y-5 transition-all duration-500 ease-in-out"
+            "opacity-100 translate-y-3 transition-all duration-500 ease-in-out"
         )}
       >
         <div className="flex items-center gap-1 pl-4">

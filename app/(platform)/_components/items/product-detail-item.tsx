@@ -43,10 +43,10 @@ export const ProductDetailItem = ({
   return (
     <div
       className={cn(
-        "w-[150px] bg-white bg-opacity-75 absolute hidden group-hover:block transition bottom-0 left-0 pricetag hover:bg-white cursor-pointer overflow-hidden p-1 "
+        "w-[150px] bg-white bg-opacity-75 absolute hidden group-hover:block  bottom-0 left-0 pricetag hover:bg-white cursor-pointer overflow-hidden p-1 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-in-out "
       )}
     >
-      <div className="flex items-center justify-between px-2">
+      <div className="flex items-center justify-between px-2 ">
         <div>
           <h2 className="text-xl font-bold w-[20px]">{name}</h2>
           <p className="text-sm text-muted-foreground w-[6rem]">{material}</p>

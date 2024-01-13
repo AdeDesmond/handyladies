@@ -28,6 +28,7 @@ model User {
   accounts              Account[]
   orders                Orders[]
   Comments              Comments[]
+  Wishlists             Wishlists[]
 }
 
 model Account {
@@ -85,20 +86,21 @@ model TwoFactorConfirmation {
 }
 
 model Product {
-  id          String @id @default(cuid())
-  name        String
-  brand       String
-  price       Int
-  quantity    Int
-  description String @db.Text
-  image       String @db.Text
-  material    String
+  id           String   @id @default(cuid())
+  name         String
+  brand        String
+  price        Int
+  quantity     Int
+  description  String   @db.Text
+  image        String   @db.Text
+  material     String
+  isWishListed Boolean  @default(false)
+  created_At   DateTime @default(now())
+  updated_At   DateTime @updatedAt
 
-  created_At DateTime @default(now())
-  updated_At DateTime @updatedAt
-
-  orders   Orders[]
-  Comments Comments[]
+  orders    Orders[]
+  Comments  Comments[]
+  Wishlists Wishlists[]
 }
 
 model Orders {
@@ -138,4 +140,12 @@ model Comments {
   created_At DateTime @default(now())
   product    Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Wishlists {
+  id        String  @id @default(cuid())
+  productId String
+  userId    String
+  products  Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  users     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

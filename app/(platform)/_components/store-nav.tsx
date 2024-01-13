@@ -1,15 +1,26 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { ShoppingCartIcon } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useSelector } from "react-redux";
 
 export const StoreNav = () => {
   const { cartItems } = useSelector((state: any) => state.cart);
+  const pathName = usePathname();
+
   return (
     <div className="flex items-center justify-center gap-x-1 text-slate-200 flex-col gap-y-3 lg:flex-row">
-      <Button size="sm" asChild>
+      <Button
+        className={cn(
+          pathName.includes("/product") &&
+            " bg-amber-700 border-none text-white"
+        )}
+        size="sm"
+        asChild
+      >
         <Link
           href="/product"
           className="text-sm text-muted-foreground text-slate-400"

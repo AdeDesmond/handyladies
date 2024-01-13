@@ -2,15 +2,6 @@
 import axios from "axios";
 import { MoonLoader } from "react-spinners";
 import React, { useCallback, useEffect, useState } from "react";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { useDispatch, useSelector } from "react-redux";
 import CartListItem from "./_components/cart-list-item";
 import { Button } from "@/components/ui/button";
@@ -100,26 +91,21 @@ function CartPage() {
                 <span className="text-xs text-muted-foreground">.00</span>
               </p>
             </p>
-            <Table className="bg-white w-full mx-auto">
-              <TableCaption>A list of your recent invoices.</TableCaption>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-[100px]">Product Photo</TableHead>
-                  <TableHead>Product Name</TableHead>
-                  <TableHead>Brand</TableHead>
-                  <TableHead className="text-center">Amount</TableHead>
-                  <TableHead className="text-center">Price</TableHead>
-                  <TableHead className="text-left">Quantity</TableHead>
-                  <TableHead className="text-left">Remove</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
+            <div className="bg-white w-full mx-auto">
+              <div>
                 {cartItems.map((product: any) => (
                   <CartListItem key={product.id} product={product} />
                 ))}
-              </TableBody>
-              <Button onClick={handleClearCart}>Temporal clear</Button>
-            </Table>
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                className="mb-2 mt-2 ml-4 lg:hidden md:hidden"
+                onClick={handleClearCart}
+              >
+                clear cart
+              </Button>
+            </div>
             <div className="flex flex-col items-center justify-end gap-y-2">
               <p className="bg-amber-700 w-[15rem] h-10 rounded-lg text-white flex items-center justify-center gap-x-1">
                 subtotal({itemQuantity}items):
@@ -130,6 +116,7 @@ function CartPage() {
                 role="link"
                 size="sm"
                 variant="secondary"
+                className="bg-slate-900 text-white hover:bg-slate-700"
               >
                 proceed to checkout
               </Button>

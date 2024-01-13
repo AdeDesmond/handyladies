@@ -5,6 +5,7 @@ import { ShowProductItem } from "./items/show-product-item";
 import { cn } from "@/lib/utils";
 import { ProductProps } from "@/data/product/query-products";
 import { Product } from "@prisma/client";
+import { Footer } from "./footer";
 
 const testProducts = [
   {
@@ -51,11 +52,16 @@ export const ShowProduct = ({ products }: ShowProductsProps) => {
   return (
     <div
       className={cn(
-        " grid-cols-1 md:grid-cols-2 w-[500px] md:w-[750px] md:left-[5rem] gap-y-4  lg:w-[1200px] bg-white absolute md:top-[28rem] lg:top-[28rem]  z-1000 lg:left-[10rem] grid lg:grid-cols-3 min-h-screen place-items-center gap-3 p-4",
+        " grid-cols-1 md:grid-cols-2 w-[500px] md:w-[750px] md:left-[5rem] gap-y-4  lg:w-[1200px] bg-white absolute md:top-[28rem] lg:top-[28rem]  z-1000  p-4",
         pathName === "/product" && "lg:top-[6rem] md:top-[6rem]"
       )}
     >
-      {renderedBags}
+      <div className="w-full lg:left-[10rem] grid lg:grid-cols-3 min-h-screen place-items-center gap-3">
+        {renderedBags}
+      </div>
+      <div className="w-full">
+        <Footer />
+      </div>
     </div>
   );
 };

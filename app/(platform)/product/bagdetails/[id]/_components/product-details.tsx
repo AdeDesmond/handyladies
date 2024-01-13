@@ -1,10 +1,12 @@
 "use client";
+import { BsHeartFill, BsHeart } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
   Facebook,
   Heart,
+  HeartHandshake,
   Instagram,
   MessageCircle,
   Minus,
@@ -17,10 +19,13 @@ import {
   decreaseCartItem,
   increaseCartItem,
 } from "@/redux-store/slice/cart-slice";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { CommentForm } from "./comments/comment-form";
 import { CommentList } from "./comments/comment-list";
 import { Comments } from "@prisma/client";
+import { wishList } from "@/actions/wishlist";
+import { useCurrentUSer } from "@/hooks/use-current-user";
+import { useFormState } from "react-dom";
 
 interface ProductWithDetailsProps {
   item:
@@ -46,6 +51,8 @@ export const ProductsWithDetails = ({
   productId,
   commentsByProduct,
 }: ProductWithDetailsProps) => {
+  const user = useCurrentUSer();
+  const [isPending, startTransition] = useTransition();
   const dispatch = useDispatch();
   const [showComment, setShowComment] = useState(false);
   const [qtyTest, setQty] = useState(1);
@@ -70,6 +77,13 @@ export const ProductsWithDetails = ({
   const handleShowCommentForm = () => {
     setShowComment((show) => !show);
   };
+  //fix the bookmark option
+  const userId = user?.id;
+  const initialState = {};
+  const [state, wishListAction] = useFormState(
+    wishList.bind(null, { productId, userId }),
+    initialState
+  );
   return (
     <div className="bg-white w-[1200px] px-[9rem]">
       <div className="flex flex-col pl-10 lg:pl-0 lg:flex-row md:flex-row justify-between items-center pt-10 ">
@@ -116,9 +130,21 @@ export const ProductsWithDetails = ({
                 <Minus className="w-4 h-4" />
               </Button>
             </div>
-            <Button size="sm" variant="outline">
-              <Heart className="w-4 h-4" />
-            </Button>
+
+            <form action={wishListAction}>
+              <Button
+                type="submit"
+                disabled={isPending}
+                size="sm"
+                variant="outline"
+              >
+                {item.isWishListed ? (
+                  <BsHeartFill className="h-4 w-4" />
+                ) : (
+                  <BsHeart className="w-4 h-4" />
+                )}
+              </Button>
+            </form>
           </div>
           <div className="flex flex-col mb-3">
             <p>
