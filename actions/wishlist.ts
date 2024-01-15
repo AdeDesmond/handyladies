@@ -17,13 +17,6 @@ export async function wishList({ productId, userId }: any) {
       data: {
         productId,
         userId,
-      },
-    });
-    await db.product.update({
-      where: {
-        id: productId,
-      },
-      data: {
         isWishListed: true,
       },
     });

@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useDispatch, useSelector } from "react-redux";
 import { cn } from "@/lib/utils";
 import { ShoppingCartIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { addToCart } from "@/redux-store/slice/cart-slice";
 
 interface ProductDetailItemProps {

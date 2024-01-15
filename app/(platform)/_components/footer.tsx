@@ -7,7 +7,7 @@ export const Footer = () => {
     <footer className="w-full ">
       <div className="w-full h-[15rem] bg-slate-800 flex items-center justify-center flex-col">
         <p className="text-xl text-slate-200">Subcribe to our news letter</p>
-        <div className="flex items-center gap-x-1">
+        <div className="flex flex-col gap-y-2 lg:flex-row items-center gap-x-1">
           <Input
             type="text"
             className="w-[20rem]"
@@ -24,10 +24,10 @@ export const Footer = () => {
       </div>
       <div className="w-full h-[6rem] bg-slate-950 flex items-center flex-col justify-center">
         <div className="text-slate-300 flex items-center gap-x-1">
-          <p>About Us</p>
+          <p>About</p>
           <p>FAQs</p>
           <p>Careers</p>
-          <p>Contact Us</p>
+          <p>Contact</p>
         </div>
         <div>
           <p className=" flex items-center gap-x-1 text-slate-400">

@@ -26,6 +26,7 @@ import { Comments } from "@prisma/client";
 import { wishList } from "@/actions/wishlist";
 import { useCurrentUSer } from "@/hooks/use-current-user";
 import { useFormState } from "react-dom";
+import { WishListDisplayButton } from "./wish-list-display";
 
 interface ProductWithDetailsProps {
   item:
@@ -44,12 +45,14 @@ interface ProductWithDetailsProps {
     | (null & any);
   productId: string;
   commentsByProduct: Comments[];
+  isWishList: any;
 }
 
 export const ProductsWithDetails = ({
   item,
   productId,
   commentsByProduct,
+  isWishList,
 }: ProductWithDetailsProps) => {
   const user = useCurrentUSer();
   const [isPending, startTransition] = useTransition();
@@ -84,6 +87,9 @@ export const ProductsWithDetails = ({
     wishList.bind(null, { productId, userId }),
     initialState
   );
+  const renderedWish = isWishList.map((wish: any) => (
+    <WishListDisplayButton key={wish} wish={wish} />
+  ));
   return (
     <div className="bg-white w-[1200px] px-[9rem]">
       <div className="flex flex-col pl-10 lg:pl-0 lg:flex-row md:flex-row justify-between items-center pt-10 ">
@@ -132,13 +138,8 @@ export const ProductsWithDetails = ({
             </div>
 
             <form action={wishListAction}>
-              <Button
-                type="submit"
-                disabled={isPending}
-                size="sm"
-                variant="outline"
-              >
-                {item.isWishListed ? (
+              <Button type="submit" size="sm" variant="outline">
+                {isWishList[0]?.isWishListed ? (
                   <BsHeartFill className="h-4 w-4" />
                 ) : (
                   <BsHeart className="w-4 h-4" />

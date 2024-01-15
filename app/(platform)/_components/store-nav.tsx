@@ -38,19 +38,28 @@ export const StoreNav = () => {
         </Link>
       </Button>
 
-      <Button asChild>
+      <Button
+        className={cn(
+          pathName.includes("/wishlist") &&
+            " bg-amber-700 border-none text-white"
+        )}
+        asChild
+      >
         <Link
-          href="/product"
+          href="/wishlist"
           className="text-sm text-muted-foreground text-slate-400"
         >
-          About Us
+          Wishlist
         </Link>
       </Button>
 
       <Button asChild>
         <Link
           href="/cart"
-          className="text-sm text-muted-foreground flex items-center gap-x-1 text-slate-400 relative"
+          className={cn(
+            "text-sm text-muted-foreground flex items-center gap-x-1 text-slate-400 relative",
+            pathName.includes("/cart") && " bg-amber-700 border-none text-white"
+          )}
         >
           {cartItems.length <= 0 ? null : (
             <div className="absolute top-1 right-10 h-4 w-4 rounded-full bg-slate-900 flex items-center justify-center font-bold text-xs  border border-amber-600 text-white">
