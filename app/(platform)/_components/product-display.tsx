@@ -3,42 +3,8 @@
 import { usePathname } from "next/navigation";
 import { ShowProductItem } from "./items/show-product-item";
 import { cn } from "@/lib/utils";
-import { ProductProps } from "@/data/product/query-products";
 import { Product } from "@prisma/client";
 import { Footer } from "./footer";
-
-const testProducts = [
-  {
-    bagImageUrl: "/bags/1.png",
-    name: "Kors",
-    price: 300,
-    material: "leather",
-  },
-  {
-    bagImageUrl: "/bags/2.png",
-    name: "YSL",
-    price: 1200,
-    material: "leather",
-  },
-  {
-    bagImageUrl: "/bags/3.png",
-    name: "Channel",
-    price: 800,
-    material: "Hides Skin leather",
-  },
-  {
-    bagImageUrl: "/bags/4.png",
-    name: "Gucci",
-    price: 900,
-    material: "Cow leather",
-  },
-  {
-    bagImageUrl: "/bags/5.png",
-    name: "Plein",
-    price: 500,
-    material: "crock leather",
-  },
-];
 
 interface ShowProductsProps {
   products: Product[];
