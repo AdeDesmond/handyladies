@@ -2,7 +2,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 export const LoadingSkeleton = () => {
   return (
-    <div className="max-w-[1200px] h-[20rem]">
+    <div className="max-w-[1200px] h-[20rem] mx-auto">
       <Skeleton className="w-full h-full" />
     </div>
   );
