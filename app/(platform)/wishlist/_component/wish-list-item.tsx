@@ -43,6 +43,7 @@ export const WishListItem = ({ item }: any) => {
           width={80}
           height={80}
           className="object-cover"
+          placeholder="blur"
         />
         <Badge className="bg-emerald-500">In stock</Badge>
       </div>

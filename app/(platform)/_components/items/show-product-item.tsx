@@ -26,6 +26,8 @@ export const ShowProductItem = ({ item }: ShowProductItemsProps) => {
           alt="bag"
           fill
           className="object-cover cursor-pointer hover:scale-105 transition ease-in-out duration-200 hover:grayscale-0"
+          placeholder="blur"
+          blurDataURL="data:"
         />
       </Link>
       <ProductDetailItem
