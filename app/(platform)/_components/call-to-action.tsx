@@ -14,7 +14,10 @@ export const CallToAction = () => {
     <div className="absolute w-[400px] top-[10rem] left-[3rem] lg:left-[8.5rem] md:left-[3rem]">
       <p className="mb-2 text-4xl font-extrabold  leading-relaxed text-slate-300">
         Changing the <span className="">frontiers</span> of hand{" "}
-        <span className="bg-amber-700 call px-8 ">bags</span> with{" "}
+        <span className="bg-slate-950 bg-opacity-80 text-white call px-8 ">
+          bags
+        </span>{" "}
+        with{" "}
         <span
           className={cn(
             " h-8 p-3 clip text-4xl text-amber-600 font-extrabold ",
